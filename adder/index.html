@@ -12,7 +12,50 @@
 <script src="../lib/react-dom.min.js"></script>
 <script src="index.js"></script>
 <script type="text/jsx">
-
+var AdderOne=React.createClass({
+    getInitialState:function(){
+        return {n:0};
+    },
+    click:function(){
+        this.setState( {n:this.state.n+this.props.x});
+    },
+    render: function () {
+        return (<div onClick={this.click}>你点击了{this.state.n}次</div>)
+    }
+});
+ReactDOM.render(
+        <AdderOne x={1}/>,
+        document.getElementById("add1")
+);
+var AddX=React.createClass({
+    changeValue:function(){
+        this.props.callBack(this.props.x)
+    },
+    render:function(){
+        return (<div onClick={this.changeValue}>{this.props.x}元</div>);
+    }
+});
+var Adder=React.createClass({
+    getInitialState:function(){
+        return {n:0};
+    },
+    click:function(x){
+        this.setState({n:this.state.n+x})
+    },
+    render:function(){
+        return (<div>
+            <AddX x={1} callBack={this.click}/>
+            <AddX x={3} callBack={this.click}/>
+            <AddX x={5} callBack={this.click}/>
+            <AddX x={10} callBack={this.click}/>
+            <div id="show">共计{this.state.n}元</div>
+        </div>)
+    }
+});
+ReactDOM.render(
+        <Adder />,
+        document.getElementById("add1_10")
+);
 </script>
 </body>
 </html>
