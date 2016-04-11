@@ -6,8 +6,10 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-<div id="add1"></div>
-<div id="add1_10"></div>
+<div class="box">
+        <div id="add1"></div>
+        <div id="add1_10"></div>
+</div>
 <script src="../lib/react.min.js"></script>
 <script src="../lib/react-dom.min.js"></script>
 <script src="index.js"></script>
@@ -17,38 +19,46 @@ var AdderOne=React.createClass({
         return {n:0};
     },
     click:function(){
-        this.setState( {n:this.state.n+this.props.x});
+        this.setState( {n:this.state.n+1});
     },
     render: function () {
-        return (<div onClick={this.click}>你点击了{this.state.n}次</div>)
+        return (<div onClick={this.click} className="item1">你点击了{this.state.n}次</div>)
     }
 });
 ReactDOM.render(
-        <AdderOne x={1}/>,
+        <AdderOne />,
         document.getElementById("add1")
 );
 var AddX=React.createClass({
+    getInitialState:function(){
+        return {n:0};
+    },
     changeValue:function(){
-        this.props.callBack(this.props.x)
+        this.props.callBack(this.props.x);
+        this.setState({n:this.state.n+1});
     },
     render:function(){
-        return (<div onClick={this.changeValue}>{this.props.x}元</div>);
+        return (<div onClick={this.changeValue} className="item2_1_1">{this.props.x}元
+            {this.state.n}件</div>);
     }
 });
 var Adder=React.createClass({
     getInitialState:function(){
-        return {n:0};
+        return {n:0,u:0};
     },
     click:function(x){
-        this.setState({n:this.state.n+x})
+        this.setState({n:this.state.n+x,
+        u:this.state.u+1});
     },
     render:function(){
-        return (<div>
-            <AddX x={1} callBack={this.click}/>
-            <AddX x={3} callBack={this.click}/>
-            <AddX x={5} callBack={this.click}/>
-            <AddX x={10} callBack={this.click}/>
-            <div id="show">共计{this.state.n}元</div>
+        return (<div className="item2">
+                <div className="item2_1">
+                    <AddX x={1} callBack={this.click}/>
+                    <AddX x={3} callBack={this.click}/>
+                    <AddX x={5} callBack={this.click}/>
+                    <AddX x={10} callBack={this.click}/>
+                </div>
+                <div className="item2_2">共计{this.state.n}元{this.state.u}</div>
         </div>)
     }
 });
