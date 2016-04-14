@@ -1,0 +1,38 @@
+li{
+    list-style: none;
+}
+#box{
+    width: 400px;
+    margin: 100px auto;
+}
+#box input{
+    width: 300px;
+    height: 25px;
+    font-size: 15px;
+    display: inline-block;
+    margin: auto;
+    z-index: 2;
+
+}
+#box ul{
+    cursor: pointer;
+    margin-top: 0;
+    margin-left: 1px;
+    width: 262px;
+    color: #666;
+    border: 1px solid #666;
+    overflow: hidden;
+    position: absolute;
+    visibility: hidden;
+
+}
+#box ul li{
+    max-width: 300px;
+    padding: 8px;
+    margin-left: -40px;
+    border-top: 1px solid #ddd;
+    overflow: hidden;
+}
+#box ul li:hover{
+    background-color: #eee;
+}
