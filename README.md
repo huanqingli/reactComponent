@@ -7,7 +7,7 @@
 个子组件，那么第一个问题来了：**父组件与子组件之间的通讯**。父组件传值给子组件比较简单，直接在调用子组件时候加个props
 就行了，子组件想传值给父组件还是费了点劲（新人轻喷）。这次采用的方法是直接把父组件的一个方程传给子组件，子组件传参进去并调用方程，修改了父组件相应的值，属于间接与父组件通信。关于父子组件通讯问题，也看到有前辈说调用子组件时给子组件一个ref,到时候直接抓住子组件的真实DOM并从中获取需要的值。
 ##autoEmailComlite
-###demo::http://huanqingli.github.io/reactComponent/autoEmailComlite
+###demo::http://huanqingli.github.io/reactComponent/autoEmailComplite
 总结、感受与坑：
 想法起源于公司后台首页，登录时需要下拉列表自动补充三种公司邮箱，借用了前辈的jQuery插件，刚好在学react
 ，用它写个小组件试试。组件虽小，写的过程也是波澜起伏。首先，循环出来一个列表，第一次接触了
