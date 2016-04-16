@@ -48,17 +48,17 @@ var Adder=React.createClass({
     },
     click:function(x){
         this.setState({n:this.state.n+x,
-        u:this.state.u+1});
+            u:this.state.u+1});
     },
     render:function(){
         return (<div className="item2">
-                <div className="item2_1">
-                    <AddX x={1} callBack={this.click}/>
-                    <AddX x={3} callBack={this.click}/>
-                    <AddX x={5} callBack={this.click}/>
-                    <AddX x={10} callBack={this.click}/>
-                </div>
-                <div className="item2_2">共计{this.state.n}元{this.state.u}</div>
+            <div className="item2_1">
+                <AddX x={1} callBack={this.click}/>
+                <AddX x={3} callBack={this.click}/>
+                <AddX x={5} callBack={this.click}/>
+                <AddX x={10} callBack={this.click}/>
+            </div>
+            <div className="item2_2">共计{this.state.n}元{this.state.u}</div>
         </div>)
     }
 });
