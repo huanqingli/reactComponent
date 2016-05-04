@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=0.6,minimum-scale=0.6,maximum-scale=0.6,user-scalable=no" />
+    <title>backTop</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div id="backtop"></div>
+<div id="text">往下咕噜吧亲</div>
+<div id="scroll"></div>
+<script src="../lib/react.min.js"></script>
+<script src="../lib/react-dom.min.js"></script>
+<script src="simulationOfScrollBar.js"></script>
+<script src="index.js"></script>
+<script type="text/jsx">
+    var BackTop=React.createClass({
+        getInitialState:function(){
+            return{
+                play:"none"
+            }
+        },
+        componentDidMount:function(){
+            var scrolltop=function(){
+                var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
+                if(scrollTop>document.documentElement.clientHeight){
+                    this.setState({play: "block"});
+
+                }else{
+                    this.setState({play: "none"});
+                }
+            }.bind(this);
+            window.addEventListener("scroll",scrolltop,false);
+//            function compute(){
+//                if(document.body.scrollTop>document.documentElement.clientHeight){
+//                    this.setState({play: "block"});
+//
+//                }else{
+//                    this.setState({play: "none"});
+//                }
+//            }
+//            document.body.addEventListener("mousewheel",compute.bind(this));
+//            document.body.addEventListener("DOMMouseScroll",compute.bind(this));
+        },
+        back:function(){
+            var timer=setInterval(goTop,30);
+            function goTop(){
+                var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
+                if(scrollTop<=8){
+                    document.body.scrollTop=0;
+                    document.documentElement.scrollTop=0;
+                    clearInterval(timer)
+                }else if(0.1*scrollTop<8){
+                    document.body.scrollTop-=8;
+                    document.documentElement.scrollTop-=8;
+                }else{
+                    document.body.scrollTop*=0.9;
+                    document.documentElement.scrollTop*=0.9;
+                }
+            }
+        },
+        render:function(){
+            return(<div id="topbox" onClick={this.back} style={{display:this.state.play}}>Top
+            </div>)
+        }
+    });
+    ReactDOM.render(
+            <BackTop />,
+            document.getElementById("backtop")
+    );
+    //
+    var ScrollBar=React.createClass({
+        getInitialState:function(){
+            return{
+                top:0
+            }
+        },
+        componentDidMount:function(){
+            var scrolltop=function(){
+                var scrollTop=document.body.scrollTop||document.documentElement.scrollTop;
+                this.setState({top:scrollTop/(document.body.scrollHeight-document.documentElement.clientHeight)*560});
+            }.bind(this);
+            window.addEventListener("scroll",scrolltop,false);
+        },
+        mouseDown:function(event){
+            var y=event.clientY-this.state.top-50;//获取点击位置与拖拽模块顶部的距离
+            document.onmousemove=function(event){
+                var top=event.clientY-y-50;
+                if(top>555){
+                    this.setState({top:560});
+                    document.body.scrollTop=document.documentElement.scrollTop=document.body.scrollHeight-document.documentElement.clientHeight;
+                }else if(top<5){
+                    this.setState({top:0});
+                    document.body.scrollTop=document.documentElement.scrollTop=0;
+                }else{
+                    this.setState({top:top});
+                    document.body.scrollTop=document.documentElement.scrollTop=top/560*(document.body.scrollHeight-document.documentElement.clientHeight);
+                }
+                return false
+            }.bind(this);
+            document.onmouseup=function(){
+                document.onmousemove=document.onmouseup=null;
+            };
+            return false
+        },
+        render:function(){
+            return(<div id="scrollbar" ref="scrollbar" style={{height:600}}>
+                <div id="bar" ref="bar" style={{top:this.state.top,height:40}} onMouseDown={this.mouseDown}></div>
+            </div>)
+        }
+    });
+    ReactDOM.render(
+            <ScrollBar/>,
+            document.getElementById("scroll")
+    );
+</script>
+</body>
+</html>

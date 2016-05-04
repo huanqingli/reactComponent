@@ -3,6 +3,7 @@
     <properties>
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/adder/hgchgvjh-compiled.js" />
+        <item url="file://$PROJECT_DIR$/adder/index-compiled.js" />
         <item url="file://$PROJECT_DIR$/adder/uytyuguyyug-compiled.js" />
       </sourceFilesUrls>
     </properties>
@@ -22,6 +23,9 @@
       <root url="file://$PROJECT_DIR$/adder/ghghhgh-compiled.js" />
       <root url="file://$PROJECT_DIR$/adder/dcdsc-compiled.js" />
       <root url="file://$PROJECT_DIR$/adder/hgchgvjh-compiled.js" />
+      <root url="file://$PROJECT_DIR$/adder/uytyuguyyug-compiled.js" />
+      <root url="file://$PROJECT_DIR$/adder/hgchgvjh-compiled.js" />
+      <root url="file://$PROJECT_DIR$/adder/index-compiled.js" />
       <root url="file://$PROJECT_DIR$/adder/uytyuguyyug-compiled.js" />
     </CLASSES>
     <SOURCES />
