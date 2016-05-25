@@ -1,0 +1,51 @@
+*{margin: 0;padding: 0;}
+.comment-box{
+    margin: 50px auto;
+    width: 600px;
+    border: 1px solid #c0c0c0;
+}
+.comment-header,.comment-list,.submit-form{
+    width: 90%;
+    margin: auto;
+}
+.comment-header{
+    font-size: 25px;
+    padding: 15px 0;
+    text-indent: 10px;
+}
+.comment-list>div{
+    padding: 10px 20px;
+}
+.comment-list>div:nth-child(odd){
+    box-shadow: 2px 2px 4px;
+}
+.author,.date{
+    padding: 5px 0;
+    line-height: 20px;
+}
+.author{
+    float: left;
+    font-size: 20px;
+}
+.date{
+    float: right;
+    font-size: 14px;
+    color: #c0c0c0;
+    margin: 2px 0 0 30px;
+}
+.comment{
+    clear: both;
+    line-height: 18px;
+}
+.submit-form{
+    padding: 40px;
+}
+.input-author,.input-comment{
+    padding: 5px;
+    margin: 10px 30px;
+    border: 1px solid #cccccc;
+}
+.submit-button{
+    padding: 5px 10px;
+    margin: 10px 78px;
+}

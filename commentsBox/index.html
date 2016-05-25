@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../lib/normalize.min.css">
+    <link rel="stylesheet" href="index.css"/></head>
+<body>
+<div id="box"></div>
+<script src="../lib/react.min.js"></script>
+<script src="../lib/react-dom.min.js"></script>
+<script src="../lib/jquery.js"></script>
+<script src="../lib/marked.js"></script>
+<script src="index.js"></script>
+<script type="text/jsx">
+var CommentBox=React.createClass({
+    getInitialState:function(){
+        return{data:[]}
+    },
+    getComments:function(){
+        $.ajax({
+            url:this.props.url,
+            dataType:"json",
+            type:"get",
+            success:function(data){
+                this.setState({data:data})
+            }.bind(this)
+        });
+    },
+    setComment:function(newComment){
+        $.ajax({
+            url:this.props.url,
+            dataType:"json",
+            type:"post",
+            data:newComment,
+            success:function(data){
+                this.setState({data:data})
+            }.bind(this)
+        });
+    },
+    componentDidMount:function(){
+        this.getComments();
+        setInterval(this.getComments,2000);
+    },
+    render:function(){
+        return(
+                <div className="comment-box">
+                    <p className="comment-header">Comment:</p>
+                    <CommentList data={this.state.data}></CommentList>
+                    <SubmitForm setComment={this.setComment}></SubmitForm>
+                </div>
+        )
+    }
+});
+var CommentList=React.createClass({
+    render:function(){
+        var allComments=this.props.data.map(function(comment){
+            var text=function(){
+                var text=marked(comment.text, {sanitize: true});
+                return { __html: text };
+            };
+            return(<div>
+                <p className="author">{comment.author}</p>
+                <p className="date">{comment.date}</p>
+                <p className="comment"><span dangerouslySetInnerHTML={text()} /></p>
+                </div>);
+                });
+        return(
+                <div className="comment-list">
+                    {allComments}
+                </div>
+        )
+    }
+});
+var SubmitForm=React.createClass({
+    setData:function(){
+        var author=this.refs.author.value.trim();
+        var text=this.refs.text.value.trim();
+        if(!author){
+            alert("请输入昵称");
+            return;
+        }else if(!text){
+            alert("请输入留言");
+            return;
+        }
+        var newComment={
+            "author": author,
+            "text": text
+        };
+        this.props.setComment(newComment);
+        this.refs.author.value="";
+        this.refs.text.value="";
+    },
+    keyboardSet:function(ev){
+        if(ev.keyCode == 13){
+            this.setData();
+        }
+    },
+    render:function(){
+        return(<div className="submit-form">
+            <div>昵称：<input className="input-author" type="text" ref="author"/></div>
+            <div><span style={{top:-100+"px",position:"relative"}}>留言：</span><textarea className="input-comment" ref="text" rows="6" cols="40" onKeyUp={this.keyboardSet}/></div>
+            <button className="submit-button" onClick={this.setData}>提交</button>
+        </div>)
+    }
+});
+ReactDOM.render(
+        <CommentBox url="test.php"/>,
+        document.getElementById("box")
+);
+</script>
+</body>
+</html>
