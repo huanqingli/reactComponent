@@ -67,7 +67,8 @@ var Adder = React.createClass({
                 "共计",
                 this.state.n,
                 "元",
-                this.state.u
+                this.state.u,
+                "件"
             )
         );
     }
